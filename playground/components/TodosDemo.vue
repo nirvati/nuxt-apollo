@@ -56,11 +56,11 @@ function todoAdded () {
   const { onResult, onError } = useSubscription(gqlTodoAdded, null, { clientId: 'todos' })
 
   onResult((r) => {
-    data.value = r.data as any
+    data.value = r.data as TodoEntry[]
   })
 
   onError((e) => {
-    // eslint-disable-next-line no-console
+
     console.log(e)
   })
 }

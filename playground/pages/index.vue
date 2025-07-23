@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script lang="ts" setup>
 const apis = ref([
   { label: 'Starlink', value: 'starlink' },

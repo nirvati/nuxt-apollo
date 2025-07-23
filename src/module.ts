@@ -1,4 +1,4 @@
-import { existsSync } from 'fs'
+import { existsSync } from 'node:fs'
 import jiti from 'jiti'
 import { defu } from 'defu'
 import { useLogger, addPlugin, addImports, addTemplate, createResolver, defineNuxtModule } from '@nuxt/kit'
@@ -167,12 +167,11 @@ export default defineNuxtModule<ModuleOptions>({
 
     nuxt.hook('webpack:config', (configs) => {
       for (const config of configs) {
-        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const hasGqlLoader = config.module.rules.some((rule: any) => rule?.use === 'graphql-tag/loader')
 
         if (hasGqlLoader) { return }
 
-        // @ts-ignore
         config.module.rules.push({
           test: /\.(graphql|gql)$/,
           use: 'graphql-tag/loader',
@@ -198,16 +197,20 @@ export default defineNuxtModule<ModuleOptions>({
 export const defineApolloClient = (config: ClientConfig) => config
 
 export interface ModuleRuntimeConfig {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   apollo: NuxtApolloConfig<any>
 }
 
 export interface ModulePublicRuntimeConfig {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   apollo: NuxtApolloConfig<any>
 }
 
 declare module '@nuxt/schema' {
   interface NuxtConfig { ['apollo']?: Partial<ModuleOptions> }
   interface NuxtOptions { ['apollo']?: ModuleOptions }
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface RuntimeConfig extends ModuleRuntimeConfig {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface PublicRuntimeConfig extends ModulePublicRuntimeConfig {}
 }
