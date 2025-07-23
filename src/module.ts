@@ -24,7 +24,7 @@ export default defineNuxtModule<ModuleOptions>({
     version,
     configKey: 'apollo',
     compatibility: {
-      nuxt: '>=3.0.0'
+      nuxt: '^3.0.0 || ^4.0.0'
     }
   },
   defaults: {
