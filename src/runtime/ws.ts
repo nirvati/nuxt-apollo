@@ -2,10 +2,10 @@ import { createClient } from 'graphql-ws'
 import type { Client, ClientOptions } from 'graphql-ws'
 
 export interface RestartableClient extends Client {
-  restart(): void;
+  restart(): void
 }
 
-export default function createRestartableClient (options: ClientOptions): RestartableClient {
+export default function createRestartableClient(options: ClientOptions): RestartableClient {
   let restartRequested = false
   let restart = () => {
     restartRequested = true

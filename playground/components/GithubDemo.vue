@@ -22,11 +22,17 @@
       </div>
 
       <div class="mt-4 flex flex-wrap gap-3 items-center">
-        <UButton :disabled="!githubToken" @click="getViewer">
+        <UButton
+          :disabled="!githubToken"
+          @click="getViewer"
+        >
           Load @me
         </UButton>
 
-        <UButton :disabled="!githubToken" @click="getNuxtDiscussions">
+        <UButton
+          :disabled="!githubToken"
+          @click="getNuxtDiscussions"
+        >
           Load Nuxt Discussions
         </UButton>
       </div>
@@ -71,7 +77,9 @@ const whoAmI = await useAsyncQuery({ query: queryViewer, clientId: 'github' }, {
 })
 
 watch(whoAmI.data, (data) => {
-  if (!data) { return }
+  if (!data) {
+    return
+  }
 
   output.value = data
 }, { immediate: true })
@@ -91,7 +99,9 @@ const getNuxtDiscussions = () => {
 }
 
 const setToken = () => {
-  if (!githubToken.value) { return }
+  if (!githubToken.value) {
+    return
+  }
 
   onLogin(githubToken.value, 'github')
 }

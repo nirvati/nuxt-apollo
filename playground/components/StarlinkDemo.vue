@@ -18,8 +18,16 @@
 
     <UCard class="p-4">
       <div class="mb-4">
-        <label for="limit" class="mr-2">Limit:</label>
-        <input v-model.number="limit" class="w-10" type="number" min="1">
+        <label
+          for="limit"
+          class="mr-2"
+        >Limit:</label>
+        <input
+          v-model.number="limit"
+          class="w-10"
+          type="number"
+          min="1"
+        >
       </div>
 
       <div>

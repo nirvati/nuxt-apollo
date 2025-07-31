@@ -30,21 +30,29 @@ export default defineNuxtPlugin((nuxtApp) => {
         if (clientConfig.tokenStorage === 'cookie') {
           if (import.meta.client) {
             const t = useCookie(clientConfig.tokenName!).value
-            if (t) { token.value = t }
+            if (t) {
+              token.value = t
+            }
           } else if (requestCookies?.cookie) {
             const t = requestCookies.cookie.split(';').find(c => c.trim().startsWith(`${clientConfig.tokenName}=`))?.split('=')?.[1]
-            if (t) { token.value = t }
+            if (t) {
+              token.value = t
+            }
           }
         } else if (import.meta.client && clientConfig.tokenStorage === 'localStorage') {
           token.value = localStorage.getItem(clientConfig.tokenName!)
         }
 
-        if (!token.value) { return }
+        if (!token.value) {
+          return
+        }
       }
 
       const authScheme = !!token.value?.match(/^[a-z]+\s/i)?.[0]
 
-      if (authScheme || clientConfig?.authType === null) { return token.value }
+      if (authScheme || clientConfig?.authType === null) {
+        return token.value
+      }
 
       return `${clientConfig?.authType} ${token.value}`
     }
@@ -52,7 +60,9 @@ export default defineNuxtPlugin((nuxtApp) => {
     const authLink = setContext(async (_, { headers }) => {
       const auth = await getAuth()
 
-      if (!auth) { return }
+      if (!auth) {
+        return
+      }
 
       return {
         headers: {
@@ -78,7 +88,9 @@ export default defineNuxtPlugin((nuxtApp) => {
         connectionParams: async () => {
           const auth = await getAuth()
 
-          if (!auth) { return }
+          if (!auth) {
+            return
+          }
 
           return { headers: { [clientConfig.authHeader!]: auth } }
         }

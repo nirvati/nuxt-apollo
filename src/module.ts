@@ -41,7 +41,7 @@ export default defineNuxtModule<ModuleOptions>({
     },
     clientAwareness: false
   },
-  async setup (options, nuxt) {
+  async setup(options, nuxt) {
     if (!options.clients || !Object.keys(options.clients).length) {
       logger.warn('No apollo clients configured.')
       return
@@ -62,7 +62,7 @@ export default defineNuxtModule<ModuleOptions>({
     const clients: Record<string, ClientConfig> = {}
     const configPaths: Record<string, string> = {}
 
-    async function prepareClients () {
+    async function prepareClients() {
       // eslint-disable-next-line prefer-const
       for (let [k, v] of Object.entries(options.clients || {})) {
         if (typeof v === 'string') {
@@ -75,14 +75,18 @@ export default defineNuxtModule<ModuleOptions>({
           }
 
           v = resolvedConfig
-          if (!configPaths[k]) { configPaths[k] = path }
+          if (!configPaths[k]) {
+            configPaths[k] = path
+          }
         }
 
         v.authType = (v?.authType === undefined ? options.authType : v?.authType) || null
         v.authHeader = v?.authHeader || options.authHeader
         v.tokenName = v?.tokenName || `apollo:${k}.token`
         v.tokenStorage = v?.tokenStorage || options.tokenStorage
-        if (v.cookieAttributes) { v.cookieAttributes = defu(v?.cookieAttributes, options.cookieAttributes) }
+        if (v.cookieAttributes) {
+          v.cookieAttributes = defu(v?.cookieAttributes, options.cookieAttributes)
+        }
 
         v.defaultOptions = v?.defaultOptions || options.defaultOptions
 
@@ -163,7 +167,9 @@ export default defineNuxtModule<ModuleOptions>({
       config.plugins = config.plugins || []
       config.plugins.push(GraphQLPlugin() as PluginOption)
 
-      if (!nuxt.options.dev) { config.define = { ...config.define, __DEV__: false } }
+      if (!nuxt.options.dev) {
+        config.define = { ...config.define, __DEV__: false }
+      }
     })
 
     nuxt.hook('webpack:config', (configs) => {
@@ -171,7 +177,9 @@ export default defineNuxtModule<ModuleOptions>({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const hasGqlLoader = config.module.rules.some((rule: any) => rule?.use === 'graphql-tag/loader')
 
-        if (hasGqlLoader) { return }
+        if (hasGqlLoader) {
+          return
+        }
 
         config.module.rules.push({
           test: /\.(graphql|gql)$/,
@@ -182,7 +190,9 @@ export default defineNuxtModule<ModuleOptions>({
     })
 
     nuxt.hook('builder:watch', async (_event, path) => {
-      if (!Object.values(configPaths).some(p => p.includes(path))) { return }
+      if (!Object.values(configPaths).some(p => p.includes(path))) {
+        return
+      }
 
       logger.log('[@nuxtjs/apollo] Reloading Apollo configuration')
 
