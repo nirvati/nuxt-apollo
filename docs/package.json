@@ -1,12 +1,13 @@
 {
-  "name": "nuxt-graphql-docs",
+  "name": "nuxt-apollo-docs",
   "scripts": {
-    "dev": "docus dev",
-    "build": "docus build"
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate"
   },
   "dependencies": {
-    "docus": "latest",
-    "better-sqlite3": "^11.10.0",
-    "nuxt": "^3.17.6"
+    "docus": "^4.0.2",
+    "better-sqlite3": "^12.2.0",
+    "nuxt": "^4.0.2"
   }
 }
