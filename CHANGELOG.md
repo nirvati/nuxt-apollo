@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-alpha.15](https://github.com/nuxt-modules/apollo-module/compare/v5.0.0-alpha.14...v5.0.0-alpha.15) (2025-07-31)
+
+
+### Bug Fixes
+
+* replace jiti import with createJiti for improved configuration handling ([bbb0349](https://github.com/nuxt-modules/apollo-module/commit/bbb0349395526c14eacd465a4cfd7ef5a708e306))
+
 ## [5.0.0-alpha.3](https://github.com/nuxt-modules/apollo-module/compare/v5.0.0-alpha.2...v5.0.0-alpha.3) (2022-10-19)
 
 
