@@ -7,16 +7,16 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/types.d.ts",
+      "types": "./dist/types.d.mts",
       "import": "./dist/module.mjs"
     },
     "./config": {
-      "types": "./dist/config.d.ts",
+      "types": "./dist/config.d.mts",
       "import": "./dist/config.mjs"
     }
   },
   "main": "./dist/module.mjs",
-  "types": "./dist/module.d.ts",
+  "types": "./dist/module.d.mts",
   "files": [
     "dist"
   ],
@@ -26,32 +26,33 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxi prepare playground",
-    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore .",
-    "lint:fix": "eslint --fix --ext .js,.ts,.vue --ignore-path .gitignore .",
+    "lint": "eslint --ext .js,.ts,.vue .",
+    "lint:fix": "eslint --fix --ext .js,.ts,.vue .",
     "release": "standard-version --prerelease alpha && git push --follow-tags && pnpm publish --tag next"
   },
   "dependencies": {
-    "@apollo/client": "^3.9.5",
-    "@nuxt/kit": "^3.10.3",
-    "@rollup/plugin-graphql": "^2.0.4",
-    "@vue/apollo-composable": "^4.0.1",
-    "@vue/apollo-option": "^4.0.0",
+    "@apollo/client": "^3.13.8",
+    "@nuxt/kit": "^4.0.1",
+    "@rollup/plugin-graphql": "^2.0.5",
+    "@vue/apollo-composable": "^4.2.2",
+    "@vue/apollo-option": "^4.2.2",
     "defu": "^6.1.4",
-    "destr": "^2.0.3",
-    "graphql": "^16.8.1",
+    "destr": "^2.0.5",
+    "graphql": "^16.11.0",
     "graphql-tag": "^2.12.6",
-    "graphql-ws": "^5.15.0",
-    "jiti": "^1.21.0",
-    "ohash": "^1.1.3"
+    "graphql-ws": "^6.0.6",
+    "jiti": "^1.21.7",
+    "ohash": "^1.1.6"
   },
   "devDependencies": {
-    "@nuxt/module-builder": "^0.5.5",
-    "@nuxt/schema": "^3.10.3",
-    "@nuxt/ui": "^2.14.1",
-    "@nuxtjs/eslint-config-typescript": "^12.1.0",
-    "@types/node": "^20.11.24",
-    "eslint": "^8.57.0",
-    "nuxt": "^3.10.3"
+    "@eslint/compat": "^1.3.1",
+    "@nuxt/eslint-config": "^1.7.0",
+    "@nuxt/module-builder": "^1.0.1",
+    "@nuxt/schema": "^3.17.7",
+    "@nuxt/ui": "^2.22.1",
+    "@types/node": "^20.19.9",
+    "eslint": "^9.31.0",
+    "nuxt": "^3.17.7"
   },
   "publishConfig": {
     "access": "public"
@@ -59,5 +60,5 @@
   "resolutions": {
     "@nuxtjs/apollo": "link:."
   },
-  "packageManager": "pnpm@8.15.2"
+  "packageManager": "pnpm@10.13.1"
 }

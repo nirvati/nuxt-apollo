@@ -16,9 +16,9 @@ import { NuxtApollo } from '#apollo'
 import type { ApolloClientKeys } from '#apollo'
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const requestCookies = (process.server && NuxtApollo.proxyCookies && useRequestHeaders(['cookie'])) || undefined
+  const requestCookies = (import.meta.server && NuxtApollo.proxyCookies && useRequestHeaders(['cookie'])) || undefined
 
-  const clients = {} as Record<ApolloClientKeys, ApolloClient<any>>
+  const clients = {} as Record<ApolloClientKeys, ApolloClient<unknown>>
 
   for (const [key, clientConfig] of Object.entries(NuxtApollo.clients) as [ApolloClientKeys, ClientConfig][]) {
     const getAuth = async () => {
@@ -28,21 +28,21 @@ export default defineNuxtPlugin((nuxtApp) => {
 
       if (!token.value) {
         if (clientConfig.tokenStorage === 'cookie') {
-          if (process.client) {
+          if (import.meta.client) {
             const t = useCookie(clientConfig.tokenName!).value
             if (t) { token.value = t }
           } else if (requestCookies?.cookie) {
             const t = requestCookies.cookie.split(';').find(c => c.trim().startsWith(`${clientConfig.tokenName}=`))?.split('=')?.[1]
             if (t) { token.value = t }
           }
-        } else if (process.client && clientConfig.tokenStorage === 'localStorage') {
+        } else if (import.meta.client && clientConfig.tokenStorage === 'localStorage') {
           token.value = localStorage.getItem(clientConfig.tokenName!)
         }
 
         if (!token.value) { return }
       }
 
-      const authScheme = !!token.value?.match(/^[a-zA-Z]+\s/)?.[0]
+      const authScheme = !!token.value?.match(/^[a-z]+\s/i)?.[0]
 
       if (authScheme || clientConfig?.authType === null) { return token.value }
 
@@ -65,13 +65,13 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     const httpLink = authLink.concat(createHttpLink({
       ...(clientConfig?.httpLinkOptions && clientConfig.httpLinkOptions),
-      uri: (process.client && clientConfig.browserHttpEndpoint) || clientConfig.httpEndpoint,
+      uri: (import.meta.client && clientConfig.browserHttpEndpoint) || clientConfig.httpEndpoint,
       headers: { ...(clientConfig?.httpLinkOptions?.headers || {}) }
     }))
 
     let wsLink: GraphQLWsLink | null = null
 
-    if (process.client && clientConfig.wsEndpoint) {
+    if (import.meta.client && clientConfig.wsEndpoint) {
       const wsClient = createRestartableClient({
         ...clientConfig.wsLinkOptions,
         url: clientConfig.wsEndpoint,
@@ -88,7 +88,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
       nuxtApp._apolloWsClients = nuxtApp._apolloWsClients || {}
 
-      // @ts-ignore
+      // @ts-expect-error This is  a custom property we add, so TypeScript doesn't know about it
       nuxtApp._apolloWsClients[key] = wsClient
     }
 
@@ -120,7 +120,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       link,
       cache,
       ...(NuxtApollo.clientAwareness && { name: key }),
-      ...(process.server
+      ...(import.meta.server
         ? { ssrMode: true }
         : { ssrForceFetchDelay: 100 }),
       connectToDevTools: clientConfig.connectToDevTools || false,
@@ -137,14 +137,14 @@ export default defineNuxtPlugin((nuxtApp) => {
       nuxtApp.payload.data[cacheKey] = cache.extract()
     })
 
-    if (process.client && nuxtApp.payload.data[cacheKey]) {
+    if (import.meta.client && nuxtApp.payload.data[cacheKey]) {
       cache.restore(destr(JSON.stringify(nuxtApp.payload.data[cacheKey])))
     }
   }
 
   provideApolloClients(clients)
   nuxtApp.vueApp.provide(ApolloClients, clients)
-  nuxtApp.vueApp.use(createApolloProvider({ defaultClient: clients?.default as any }))
+  nuxtApp.vueApp.use(createApolloProvider({ defaultClient: clients?.default }))
   nuxtApp._apolloClients = clients
 
   const defaultClient = clients?.default
@@ -162,24 +162,29 @@ export interface ModuleRuntimeHooks {
   'apollo:error': (error: ErrorResponse) => void
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface DollarApolloHelpers extends ReturnType<typeof useApollo> {}
 interface DollarApollo {
-  clients: Record<ApolloClientKeys, ApolloClient<any>>
-  defaultClient: ApolloClient<any>
+  clients: Record<ApolloClientKeys, ApolloClient<unknown>>
+  defaultClient: ApolloClient<unknown>
 }
 
 declare module '#app' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface RuntimeNuxtHooks extends ModuleRuntimeHooks {}
   interface NuxtApp {
+    // @ts-expect-error When having the dist files also, TypeScript complains about this being declared twice
     $apolloHelpers: DollarApolloHelpers
+    // @ts-expect-error When having the dist files also, TypeScript complains about this being declared twice
     $apollo: DollarApollo
   }
 }
 
 declare module 'vue' {
   interface ComponentCustomProperties {
+    // @ts-expect-error When having the dist files also, TypeScript complains about this being declared twice
     $apolloHelpers: DollarApolloHelpers
-    // @ts-ignore
+    // @ts-expect-error When having the dist files also, TypeScript complains about this being declared twice
     $apollo: DollarApollo
   }
 }
