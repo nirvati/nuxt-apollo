@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs'
-import jiti from 'jiti'
+import { createJiti } from 'jiti'
 import { defu } from 'defu'
 import { useLogger, addPlugin, addImports, addTemplate, createResolver, defineNuxtModule } from '@nuxt/kit'
 import GraphQLPlugin from '@rollup/plugin-graphql'
@@ -12,8 +12,9 @@ export type { ClientConfig, ErrorResponse }
 
 const logger = useLogger(name)
 
-async function readConfigFile (path: string): Promise<ClientConfig> {
-  return await jiti(import.meta.url, { esmResolve: true, interopDefault: true, requireCache: false })(path)
+async function readConfigFile(path: string): Promise<ClientConfig> {
+  const jiti = createJiti(import.meta.url)
+  return await jiti.import(path, { default: true })
 }
 
 export type ModuleOptions = NuxtApolloConfig
