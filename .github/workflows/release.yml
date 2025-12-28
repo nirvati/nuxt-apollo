@@ -26,6 +26,8 @@ jobs:
         uses: pnpm/action-setup@v4
       - name: Install dependencies
         run: pnpm install
+      - name: Prepare build
+        run: pnpm nuxt-module-build build --stub
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
