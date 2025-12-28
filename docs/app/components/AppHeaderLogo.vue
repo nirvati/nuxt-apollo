@@ -19,6 +19,3 @@
     />
   </svg>
 </template>
-
-<style scoped lang="ts">
-</style>

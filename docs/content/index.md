@@ -7,12 +7,27 @@ seo:
     url: /cover.jpg
 ---
 
+::u-container{class="mt-8"}
+
+:::u-alert{title="About this project" color="info" variant="subtle" icon="i-lucide-info"}
+
+#description
+
+This project is a fork of the [original Nuxt Apollo module](https://apollo.nuxtjs.org/). It is maintained by [Nirvati](https://nirvati.eu) to better suit our needs and keep the module up to date.
+
+:::
+
+::
+
 ::u-page-hero
 
 #title
+
 Nuxt [Apollo]{style="color: var(--color-primary-500)"}
+
 #description
-Leverage [Vue Apollo](https://v4.apollo.vuejs.org) to effortlessly integrate GraphQL into your Nuxt 3 projects.
+
+Leverage [Vue Apollo](https://apollo.vuejs.org) to effortlessly integrate GraphQL into your Nuxt projects.
 
 #links
   :::u-button
@@ -25,8 +40,10 @@ Leverage [Vue Apollo](https://v4.apollo.vuejs.org) to effortlessly integrate Gra
   Get started
   :::
 
-  ::copy-code-input{source="npx nuxi@latest module add graphql"}
-  ::
+  :::copy-code-input{source="npx nuxi@latest module add graphql"}
+  :::
+
+::
 
 ::u-page-section
 
@@ -67,3 +84,5 @@ Everything you need for GraphQL in Nuxt
   #description
   Enjoy hot module replacement for your Apollo Client configuration, allowing you to make changes without restarting your server.
   :::
+
+::

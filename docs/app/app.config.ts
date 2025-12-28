@@ -5,8 +5,8 @@ export default defineAppConfig({
     }
   },
   github: {
-    url: 'https://github.com/nuxt-modules/apollo',
-    branch: 'v5',
+    url: 'https://github.com/nirvati/nuxt-apollo',
+    branch: 'main',
     rootDir: 'docs'
   }
 })

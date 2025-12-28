@@ -101,7 +101,7 @@ export default defineNuxtModule<ModuleOptions>({
     addTemplate({
       filename: 'apollo.d.ts',
       getContents: () => [
-        'import type { ClientConfig } from "@nuxtjs/apollo"',
+        'import type { ClientConfig } from "@nirvati/nuxt-apollo"',
         'declare module \'#apollo\' {',
         `  export type ApolloClientKeys = '${Object.keys(clients).join('\' | \'')}'`,
         '  export const NuxtApollo: {',
@@ -194,7 +194,7 @@ export default defineNuxtModule<ModuleOptions>({
         return
       }
 
-      logger.log('[@nuxtjs/apollo] Reloading Apollo configuration')
+      logger.log('[@nirvati/nuxt-apollo] Reloading Apollo configuration')
 
       await prepareClients()
 

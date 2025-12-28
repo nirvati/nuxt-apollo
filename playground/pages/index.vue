@@ -38,7 +38,7 @@ watch(api, value => (apiCookie.value = value))
     </main>
 
     <footer class="border-t-1 border-slate flex justify-center items-center">
-      @nuxtjs/apollo playground
+      @nirvati/nuxt-apollo playground
     </footer>
   </div>
 </template>

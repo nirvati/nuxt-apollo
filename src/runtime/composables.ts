@@ -155,14 +155,14 @@ const prep = <T> (...args: any[]) => {
   }
 
   if (!query) {
-    throw new Error('@nuxtjs/apollo: no query provided')
+    throw new Error('@nirvati/nuxt-apollo: no query provided')
   }
 
   if (!clientId || !clients?.[clientId]) {
     clientId = (clients?.default ? 'default' : Object.keys(clients!)?.[0]) as ApolloClientKeys
 
     if (!clientId) {
-      throw new Error('@nuxtjs/apollo: no client found')
+      throw new Error('@nirvati/nuxt-apollo: no client found')
     }
   }
 
