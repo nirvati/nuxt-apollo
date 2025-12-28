@@ -1,4 +1,4 @@
-[![Nuxt Apollo](./docs/public/cover.jpg)](https://nuxt-apollo.nirvati.org)
+[![Nuxt Apollo](./docs/public/cover.jpg)](https://nuxt-apollo.nirvati.eu)
 
 <h1 align="center">Nuxt Apollo</h1>
 

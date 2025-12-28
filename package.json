@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "repository": "https://github.com/nirvati/nuxt-apollo",
-  "homepage": "https://nuxt-apollo.nirvati.org",
+  "homepage": "https://nuxt-apollo.nirvati.eu",
   "type": "module",
   "exports": {
     ".": {
