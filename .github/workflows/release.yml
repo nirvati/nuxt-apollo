@@ -27,9 +27,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Create module stub build
-        run: pnpm nuxt-module-build build --stub
+        run: pnpm exec nuxt-module-build build --stub
       - name: Prepare build
-        run: pnpm nuxt-module-build prepare
+        run: pnpm exec nuxt-module-build prepare
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
