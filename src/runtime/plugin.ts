@@ -1,4 +1,5 @@
 import { destr } from 'destr'
+import { parse as parseCookie } from 'cookie-es'
 import { onError } from '@apollo/client/link/error'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { createApolloProvider } from '@vue/apollo-option'
@@ -34,7 +35,8 @@ export default defineNuxtPlugin((nuxtApp) => {
               token.value = t
             }
           } else if (requestCookies?.cookie) {
-            const t = requestCookies.cookie.split(';').find(c => c.trim().startsWith(`${clientConfig.tokenName}=`))?.split('=')?.[1]
+            const cookies = parseCookie(requestCookies.cookie)
+            const t = cookies[clientConfig.tokenName!]
             if (t) {
               token.value = t
             }

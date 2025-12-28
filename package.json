@@ -44,6 +44,7 @@
     "@rollup/plugin-graphql": "^2.0.5",
     "@vue/apollo-composable": "^4.2.2",
     "@vue/apollo-option": "^4.2.2",
+    "cookie-es": "^2.0.0",
     "defu": "^6.1.4",
     "destr": "^2.0.5",
     "graphql": "^16.12.0",
