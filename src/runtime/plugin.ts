@@ -16,7 +16,7 @@ import { NuxtApollo } from '#apollo'
 import type { ApolloClientKeys } from '#apollo'
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const requestCookies = (import.meta.server && NuxtApollo.proxyCookies && useRequestHeaders(['cookie'])) || undefined
+  const requestCookies = (import.meta.server && useRequestHeaders(['cookie'])) || undefined
 
   const clients = {} as Record<ApolloClientKeys, ApolloClient<unknown>>
 
@@ -67,7 +67,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       return {
         headers: {
           ...headers,
-          ...(requestCookies && requestCookies),
+          ...(NuxtApollo.proxyCookies && requestCookies && requestCookies),
           [clientConfig.authHeader!]: auth
         }
       }
