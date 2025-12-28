@@ -28,16 +28,9 @@ export default defineNuxtPlugin((nuxtApp) => {
 
       if (!token.value) {
         if (clientConfig.tokenStorage === 'cookie') {
-          if (import.meta.client) {
-            const t = useCookie(clientConfig.tokenName!).value
-            if (t) {
-              token.value = t
-            }
-          } else if (requestCookies?.cookie) {
-            const t = requestCookies.cookie.split(';').find(c => c.trim().startsWith(`${clientConfig.tokenName}=`))?.split('=')?.[1]
-            if (t) {
-              token.value = t
-            }
+          const t = useCookie(clientConfig.tokenName!).value
+          if (t) {
+            token.value = t
           }
         } else if (import.meta.client && clientConfig.tokenStorage === 'localStorage') {
           token.value = localStorage.getItem(clientConfig.tokenName!)
