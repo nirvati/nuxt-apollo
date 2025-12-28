@@ -28,8 +28,6 @@ jobs:
         with:
           node-version: "24"
           cache: pnpm
-      - name: Prepare build
-        run: pnpm nuxt-module-build build --stub
       - name: Restore cache
         uses: actions/cache@v4
         with:
