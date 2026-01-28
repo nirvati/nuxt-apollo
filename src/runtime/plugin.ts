@@ -19,7 +19,7 @@ import type { ApolloClientKeys } from '#apollo'
 export default defineNuxtPlugin((nuxtApp) => {
   const requestCookies = (import.meta.server && useRequestHeaders(['cookie'])) || undefined
 
-  const clients = {} as Record<ApolloClientKeys, ApolloClient<unknown>>
+  const clients = {} as Record<ApolloClientKeys, ApolloClient>
 
   for (const [key, clientConfig] of Object.entries(NuxtApollo.clients) as [ApolloClientKeys, ClientConfig][]) {
     const getAuth = async () => {
@@ -179,8 +179,8 @@ export interface ModuleRuntimeHooks {
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface DollarApolloHelpers extends ReturnType<typeof useApollo> {}
 interface DollarApollo {
-  clients: Record<ApolloClientKeys, ApolloClient<unknown>>
-  defaultClient: ApolloClient<unknown>
+  clients: Record<ApolloClientKeys, ApolloClient>
+  defaultClient: ApolloClient
 }
 
 declare module '#app' {

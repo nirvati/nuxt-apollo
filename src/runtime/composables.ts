@@ -189,7 +189,7 @@ export function useApollo(): {
   /**
    * Access the configured apollo clients.
    */
-  clients: Record<ApolloClientKeys, ApolloClient<unknown>> | undefined
+  clients: Record<ApolloClientKeys, ApolloClient> | undefined
   /**
    * Retrieve the auth token for the specified client. Adheres to the `apollo:auth` hook.
    *
@@ -217,7 +217,7 @@ export function useApollo(): {
 
 export function useApollo() {
   const nuxtApp = useNuxtApp() as NuxtApp & {
-    _apolloClients?: Record<ApolloClientKeys, ApolloClient<unknown>>
+    _apolloClients?: Record<ApolloClientKeys, ApolloClient>
     _apolloWsClients?: Record<ApolloClientKeys, RestartableClient>
   }
 

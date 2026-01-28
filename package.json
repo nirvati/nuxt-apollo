@@ -39,7 +39,7 @@
     "release": "standard-version --prerelease alpha && git push --follow-tags && pnpm publish --tag next"
   },
   "dependencies": {
-    "@apollo/client": "^3.14.0",
+    "@apollo/client": "^4.0.0",
     "@nuxt/kit": "^4.2.2",
     "@rollup/plugin-graphql": "^2.0.5",
     "@vue/apollo-composable": "^4.2.2",
@@ -51,7 +51,8 @@
     "graphql-tag": "^2.12.6",
     "graphql-ws": "^6.0.6",
     "jiti": "^2.6.1",
-    "ohash": "^2.0.11"
+    "ohash": "^2.0.11",
+    "rxjs": "^7.8.2"
   },
   "devDependencies": {
     "@eslint/compat": "^2.0.0",
