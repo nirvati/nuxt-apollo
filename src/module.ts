@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs'
 import { createJiti } from 'jiti'
 import { defu } from 'defu'
-import { useLogger, addPlugin, addImports, addTemplate, createResolver, defineNuxtModule } from '@nuxt/kit'
+import { useLogger, addPlugin, addImports, addTemplate, createResolver, defineNuxtModule, addVitePlugin } from '@nuxt/kit'
 import GraphQLPlugin from '@rollup/plugin-graphql'
 import type { PluginOption } from 'vite'
 import { name, version } from '../package.json'
@@ -25,7 +25,7 @@ export default defineNuxtModule<ModuleOptions>({
     version,
     configKey: 'apollo',
     compatibility: {
-      nuxt: '^3.0.0 || ^4.0.0'
+      nuxt: '^3.0.0 || ^4.0.0 || ^5.0.0'
     }
   },
   defaults: {
@@ -159,18 +159,22 @@ export default defineNuxtModule<ModuleOptions>({
           ].map(n => ({ name: n, from: '@vue/apollo-composable' })))
     ])
 
-    nuxt.hook('vite:extendConfig', (config) => {
-      config.optimizeDeps = config.optimizeDeps || {}
-      config.optimizeDeps.exclude = config.optimizeDeps.exclude || []
-      config.optimizeDeps.exclude.push('@vue/apollo-composable')
+    addVitePlugin(GraphQLPlugin())
 
-      config.plugins = config.plugins || []
-      config.plugins.push(GraphQLPlugin() as PluginOption)
-
-      if (!nuxt.options.dev) {
-        config.define = { ...config.define, __DEV__: false }
+    addVitePlugin(() => ({
+      name: 'apollo-composable-optimize-deps',
+      configEnvironment(name, config) {
+        // you can set environment-specific vite configuration here
+        if (name === 'client') {
+          config.optimizeDeps ||= {}
+          config.optimizeDeps.include ||= []
+          config.optimizeDeps.include.push('@vue/apollo-composable')
+        }
+      },
+      applyToEnvironment(environment) {
+        return environment.name === 'client'
       }
-    })
+    }))
 
     nuxt.hook('webpack:config', (configs) => {
       for (const config of configs) {
