@@ -101,6 +101,11 @@ export type ClientConfig = {
    * Configuration for the auth cookie.
    */
   cookieAttributes?: CookieAttributes
+
+  /**
+   * Enable data masking for the client.
+   */
+  dataMasking?: boolean
 }
 
 export interface NuxtApolloConfig<T = false> {

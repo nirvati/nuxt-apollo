@@ -131,6 +131,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     const cache = new InMemoryCache(clientConfig.inMemoryCacheOptions)
 
     clients[key as ApolloClientKeys] = new ApolloClient({
+      dataMasking: clientConfig?.dataMasking,
       link,
       cache,
       ...(NuxtApollo.clientAwareness && { name: key }),
